@@ -4,13 +4,15 @@ import {downvoteQuote, upvoteQuote, removeQuote } from '../actions/quotes';
 import QuoteCard from '../components/QuoteCard';
 
 class Quotes extends Component {
-  renderQuotes(){
   
-    console.log(this.props.quotes)
-    return this.props.quotes.map(quote=><QuoteCard quote = {quote} removeQuote = {this.props.removeQuote} upvoteQuote={this.props.upvoteQuote} downvoteQuote={this.props.downvoteQuote}/>)
+
+  renderQuotes(){ 
+    const {quotes, removeQuote, upvoteQuote, downvoteQuote} = this.props
     
+    return quotes.map(quote=><QuoteCard quote = {quote} removeQuote = {removeQuote} upvoteQuote={upvoteQuote} downvoteQuote={downvoteQuote}/>) 
   }
   render() {
+    
     return (
       <div>
         <hr />
@@ -43,21 +45,21 @@ class Quotes extends Component {
     );
   }
 }
-const mapStateToProps = state => {
-  return {quotes: state.quotes}
+// const mapStateToProps = state => {
+//   return {quotes: state.quotes}
   
-}
+// }
 
-const mapDispatchToProps = dispatch =>{
-  return {
-    removeQuote: (quoteId)=>{dispatch(removeQuote(quoteId))},
-    downvoteQuote: (quoteId)=>{dispatch(downvoteQuote(quoteId))},
-    upvoteQuote: (quoteId)=>{dispatch(upvoteQuote(quoteId))}
-  }
-}
+// const mapDispatchToProps = dispatch =>{
+//   return {
+//     removeQuote: (quoteId)=>{dispatch(removeQuote(quoteId))},
+//     downvoteQuote: (quoteId)=>{dispatch(downvoteQuote(quoteId))},
+//     upvoteQuote: (quoteId)=>{dispatch(upvoteQuote(quoteId))}
+//   }
+// }
 
 
 
 
 //add arguments to connect as needed
-export default connect(mapStateToProps, mapDispatchToProps)(Quotes);
+export default connect((state)=>({quotes: state.quotes}), {removeQuote,upvoteQuote,downvoteQuote})(Quotes);

@@ -25,7 +25,7 @@ class QuoteForm extends Component {
     // Update component state to return to default state
     event.preventDefault()
     let quote = {...this.state, id:uuid(), votes: 0}
-    this.props.dispatch(addQuote(quote))
+    this.props.addQuote(quote)
     this.setState({
       content: '', 
       author: '' 
@@ -79,4 +79,4 @@ class QuoteForm extends Component {
 }
 
 //add arguments to connect as needed
-export default connect()(QuoteForm);
+export default connect(null, {addQuote})(QuoteForm);
